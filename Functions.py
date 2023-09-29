@@ -60,7 +60,7 @@ value_letter = {
 
 def decode (text, text_len):
     code = []
-    for i in range(text_len - 1):
+    for i in range(text_len):
         value = text[i]
         code.append(letter_value[value])
     return code
