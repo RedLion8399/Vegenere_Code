@@ -1,7 +1,12 @@
-from Functions import *
+import Functions as Fc
+from Functions import decode
 
-key = input("Schlüssenwort:")
-message = input("Nachricht:")
-mes_len = len(message) 
+letter_value = Fc.letter_value
+key = input("Schlüssenwort:").lower()
+message = input("Nachricht:").lower()
+
+mes_len = len(message)
 key_len = len(key)
-code = []
+
+mes_code = decode(message, mes_len)
+key_code = decode(key, key_len)
