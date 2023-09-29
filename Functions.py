@@ -57,3 +57,10 @@ value_letter = {
     25 : "x",
     26 : "z"
 }
+
+def decode (text, text_len):
+    code = []
+    for i in range(text_len - 1):
+        value = text[i]
+        code.append(letter_value[value])
+    return code
