@@ -1,4 +1,4 @@
-from Functions import decode, letter_value, value_letter
+from Functions import decode, endcode, letter_value, value_letter
 
 code = []
 message = 0
@@ -27,8 +27,6 @@ while key == 0:
 
 for m_i in range(mes_len):
     if mes_code[m_i] == " ":
-        print(mes_code[m_i])
-        print()
         code.append(" ")
     else:
         value = mes_code[m_i] + key_code[k_i]
@@ -36,4 +34,8 @@ for m_i in range(mes_len):
             k_i += 1
         elif k_i + 1 == key_len:
             k_i = 0
+        if value > 25:
+            value -= 26
         code.append(value)
+
+print(" ".join(endcode(code, len(code))))
