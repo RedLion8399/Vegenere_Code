@@ -64,3 +64,10 @@ def decode (text, text_len):
         value = text[i]
         code.append(letter_value[value])
     return code
+
+def endcode (text, text_len):
+    code = []
+    for i in range(text_len):
+        value = text[i]
+        code.append(value_letter[value])
+    return code
