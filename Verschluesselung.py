@@ -38,4 +38,4 @@ for m_i in range(mes_len):
             value -= 26
         code.append(value)
 
-print(" ".join(endcode(code, len(code))))
+print("".join(endcode(code, len(code))))
