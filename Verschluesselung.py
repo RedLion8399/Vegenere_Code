@@ -1,9 +1,9 @@
-import Functions as Fc
-from Functions import decode
+from Functions import decode, letter_value, value_letter
 
-letter_value = Fc.letter_value
+code = []
 message = 0
 key = 0
+k_i = 0         # k_i ist der Key index
 
 while message == 0:
     try:
@@ -25,3 +25,15 @@ while key == 0:
         key = 0
         print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
+for m_i in range(mes_len):
+    if mes_code[m_i] == " ":
+        print(mes_code[m_i])
+        print()
+        code.append(" ")
+    else:
+        value = mes_code[m_i] + key_code[k_i]
+        if k_i + 1 < key_len:
+            k_i += 1
+        elif k_i + 1 == key_len:
+            k_i = 0
+        code.append(value)
