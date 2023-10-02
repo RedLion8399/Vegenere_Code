@@ -1,30 +1,27 @@
 from Functions import decode, endcode, letter_value, value_letter
 
-message = []
-code = 0
-key = 0
-k_i = 0         # k_i ist der Key index
-
-while code == 0:
+while True:
     try:
         code = input("Code:").lower()
         code_len = len(code)
         code_numbers = decode(code, code_len)
         key_input = True
+        break
     except KeyError:
-        code = 0
         print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
-while key == 0:
+while True:
     try:
         key = input("Schlüssenwort:").lower()
         key_len = len(key)
         key_code = decode(key, key_len)
         code_input = True
+        break
     except KeyError:
-        key = 0
         print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
+message = []
+k_i = 0
 for c_i in range(code_len):
     if code_numbers[c_i] == " ":
         message.append(" ")
