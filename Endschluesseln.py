@@ -5,7 +5,6 @@ while True:
         code = input("Code:").lower()
         code_len = len(code)
         code_numbers = decode(code, code_len)
-        key_input = True
         break
     except KeyError:
         print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
@@ -15,7 +14,6 @@ while True:
         key = input("Schlüssenwort:").lower()
         key_len = len(key)
         key_code = decode(key, key_len)
-        code_input = True
         break
     except KeyError:
         print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
