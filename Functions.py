@@ -22,7 +22,22 @@ class Text:
                 print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
     def counter (self):
-        pass
+        code = {}
+        highest = [0, 0]
+        for i in self.code:
+            if i != " ":
+                try:
+                    code[i] += 1
+                    print(code[i])
+                except KeyError:
+                    code[i] = 1
+                    print(code[i])
+                    for paar in code.items():
+                        if paar[1] > highest[1]:
+                            highest[0] = paar[0]
+                            highest[1] = paar[1]
+                    print(highest)
+
 
 letter_value = {
     " " : " ",
@@ -90,3 +105,4 @@ def endcode (text, text_len):
         value = text[i]
         code.append(value_letter[value])
     return code
+
