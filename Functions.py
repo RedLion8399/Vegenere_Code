@@ -21,22 +21,21 @@ class Text:
             except KeyError:
                 print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
-    def counter (self):
+    def counter (self, xte_Stelle):
         code = {}
         highest = [0, 0]
-        for i in self.code:
+        for i in xte_Stelle:
             if i != " ":
                 try:
                     code[i] += 1
-                    print(code[i])
                 except KeyError:
                     code[i] = 1
-                    print(code[i])
                     for paar in code.items():
                         if paar[1] > highest[1]:
                             highest[0] = paar[0]
                             highest[1] = paar[1]
-                    print(highest)
+        Verschiebung = highest[0] - 4
+        return Verschiebung
 
 
 letter_value = {
