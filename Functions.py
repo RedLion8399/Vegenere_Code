@@ -1,3 +1,27 @@
+class Text:
+    def __init__(self) -> None:
+        self.text = None
+        self.len = None
+        self.code = None
+    
+    def decode (self):
+        code = []
+        for i in range(self.len):
+            value = self.text[i]
+            code.append(letter_value[value])
+        return code
+
+    def user_input (self, user_message):
+        while True:
+            try:
+                self.text = input(user_message).lower()
+                self.len = len(self.text)
+                self.code = self.decode()
+                break
+            except KeyError:
+                print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
+    
+
 letter_value = {
     " " : " ",
     "a" : 0, 
@@ -57,13 +81,6 @@ value_letter = {
     24 : "y",
     25 : "z"
 } 
-
-def decode (text, text_len):
-    code = []
-    for i in range(text_len):
-        value = text[i]
-        code.append(letter_value[value])
-    return code
 
 def endcode (text, text_len):
     code = []
