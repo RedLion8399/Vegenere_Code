@@ -20,7 +20,9 @@ class Text:
                 break
             except KeyError:
                 print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
-    
+
+    def counter (self):
+        pass
 
 letter_value = {
     " " : " ",
