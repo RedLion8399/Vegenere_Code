@@ -1,4 +1,4 @@
-from Functions import Text, endcode, letter_value, value_letter
+from Functions import Text, endcode
 
 code = Text()
 Key = Text()
