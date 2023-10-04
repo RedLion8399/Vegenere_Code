@@ -21,6 +21,25 @@ class Text:
             except KeyError:
                 print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
 
+def endcode_with_key(code, key):
+    message = []
+    code_len = len(code)
+    key_len = len(key)
+    k_i = 0
+    for c_i in range(code_len):
+        if code[c_i] == " ":
+            message.append(" ")
+        else:
+            value = code[c_i] - key[k_i]
+            if k_i + 1 < key_len:
+                k_i += 1
+            elif k_i + 1 == key_len:
+                k_i = 0
+            if value < 0:
+                value += 26
+            message.append(value)
+    return message
+
 
 def remove_whitespace(text):
     without_whitespace = []
@@ -112,4 +131,3 @@ def endcode (text, text_len):
         value = text[i]
         code.append(value_letter[value])
     return code
-
