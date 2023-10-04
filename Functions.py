@@ -48,7 +48,7 @@ def remove_whitespace(text):
             without_whitespace.append(letter)
     return without_whitespace
 
-def counter (text):
+def counter(text):
     code = {}
     highest = [0, 0]
     for i in text:
@@ -61,7 +61,9 @@ def counter (text):
                     highest[0] = letter
                     highest[1] = count
     
-    Verschiebung = value_letter[letter_value[highest[0]] - 4]
+    Verschiebung = letter_value[highest[0]] - 4
+    if Verschiebung < 0:
+        Verschiebung += 26
     return Verschiebung
 
 
@@ -125,9 +127,10 @@ value_letter = {
     25 : "z"
 } 
 
-def endcode (text, text_len):
+def endcode (text):
+    text_len = len(text)
     code = []
     for i in range(text_len):
         value = text[i]
         code.append(value_letter[value])
-    return code
+    return "".join(code)
