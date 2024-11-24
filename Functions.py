@@ -5,11 +5,9 @@ class Text:
         self.code: list[int | str]
 
     def encrypt (self) -> list[int | str]:
-        code: list[int | str] = []
-        for i in range(self.len):
-            character = self.text[i]
-            code.append(letter_value[character])
-        return code
+        for character in list(self.text):
+            self.code.append(letter_value[character])
+        return self.code
 
     def get_user_input (self, user_message: str) -> None:
         while True:
