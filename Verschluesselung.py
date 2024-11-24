@@ -1,9 +1,7 @@
 from Functions import Text, decrypt
 
-message: Text = Text()
-key: Text = Text()
-message.get_user_input("Nachricht: ")
-key.get_user_input("Schlüsselwort: ")
+message: Text = Text("Nachricht: ")
+key: Text = Text("Schlüsselwort: ")
 
 k_i = 0
 code = []
