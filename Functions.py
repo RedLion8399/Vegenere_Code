@@ -1,8 +1,10 @@
 class Text:
-    def __init__(self) -> None:
+    def __init__(self, message: str) -> None:
         self.text: str
         self.len: int
         self.code: list[int | str]
+
+        self.get_user_input(message)
 
     def encrypt (self) -> list[int | str]:
         for character in list(self.text):
