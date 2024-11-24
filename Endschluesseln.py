@@ -20,4 +20,4 @@ for c_i in range(code.len):
             value += 26
         message.append(value)
 
-print("".join(decrypt(message, len(message))))
+print(decrypt(message, len(message)))

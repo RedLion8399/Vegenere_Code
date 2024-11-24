@@ -4,7 +4,7 @@ message: Text = Text("Nachricht: ")
 key: Text = Text("Schlüsselwort: ")
 
 k_i = 0
-code = []
+code: list[int | str] = []
 
 for m_i in range(message.len):
     if message.code[m_i] == " ":
@@ -19,4 +19,4 @@ for m_i in range(message.len):
             value -= 26
         code.append(value)
 
-print("".join(decrypt(code, len(code))))
+print(decrypt(code, len(code)))
