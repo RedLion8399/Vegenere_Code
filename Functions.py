@@ -1,26 +1,74 @@
+from __future__ import annotations
+
 class Text:
     def __init__(self, message: str) -> None:
         self.text: str
         self.len: int
-        self.code: list[int | str]
+        self.code: list[int | str] = []
+        self.new_text: str
+        self.new_code: list[int | str] = []
 
         self.get_user_input(message)
-
-    def encrypt (self) -> list[int | str]:
-        for character in list(self.text):
-            self.code.append(letter_value[character])
-        return self.code
 
     def get_user_input (self, user_message: str) -> None:
         while True:
             try:
                 self.text = input(user_message).lower()
                 self.len = len(self.text)
-                self.code = self.encrypt()
+                self.code = self.convert_to_numbers()
                 break
             except KeyError:
                 print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.")
 
+    def convert_to_numbers (self) -> list[int | str]:
+        for character in list(self.text):
+            self.code.append(letter_value[character])
+        return self.code
+
+    def convert_to_letters (self) -> str:
+        new_text: list[str] = []
+        for number in self.new_code:
+            new_text.append(value_letter[number])
+        self.new_text = "".join(new_text)
+        return self.new_text
+
+
+    def decrypt (self, key: Text) -> str:
+        while True:
+            try:
+                key.code.remove(" ")
+            except ValueError:
+                break
+
+        for index, text_value in enumerate(self.code):
+            if text_value == " ":
+                self.new_code.append(" ")
+                continue
+            key_value = key.code[index % len(key.code)]
+            new_value: int = text_value - key_value
+            if new_value < 0:
+                new_value += 26
+            self.new_code.append(new_value)
+        return self.convert_to_letters()
+
+    def encrypt (self, key: Text) -> str:
+        while True:
+            try:
+                key.code.remove(" ")
+            except ValueError:
+                break
+
+        for index, text_value in enumerate(self.code):
+            if text_value == " ":
+                self.new_code.append(" ")
+                continue
+            key_value = key.code[index % len(key.code)]
+            new_value: int = text_value + key_value
+            if new_value > 25:
+                new_value -= 26
+            self.new_code.append(new_value)
+
+        return self.convert_to_letters()
 
 letter_value: dict[str, int | str] = {
     " " : " ",
@@ -80,11 +128,4 @@ value_letter: dict[int | str, str] = {
     23 : "x",
     24 : "y",
     25 : "z"
-} 
-
-def decrypt (text, text_len: int) -> str:
-    code: list[str] = []
-    for i in range(text_len):
-        value = text[i]
-        code.append(value_letter[value])
-    return "".join(code)
+}
