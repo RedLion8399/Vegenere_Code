@@ -82,9 +82,9 @@ value_letter: dict[int | str, str] = {
     25 : "z"
 } 
 
-def decrypt (text, text_len: int) -> list[str]:
+def decrypt (text, text_len: int) -> str:
     code: list[str] = []
     for i in range(text_len):
         value = text[i]
         code.append(value_letter[value])
-    return code
+    return "".join(code)
