@@ -1,28 +1,28 @@
 class Text:
     def __init__(self) -> None:
-        self.text = None
-        self.len = None
-        self.code = None
-    
-    def decode (self):
-        code = []
+        self.text: str
+        self.len: int
+        self.code: list[int | str]
+
+    def encrypt (self) -> list[int | str]:
+        code: list[int | str] = []
         for i in range(self.len):
-            value = self.text[i]
-            code.append(letter_value[value])
+            character = self.text[i]
+            code.append(letter_value[character])
         return code
 
-    def user_input (self, user_message):
+    def get_user_input (self, user_message: str) -> None:
         while True:
             try:
                 self.text = input(user_message).lower()
                 self.len = len(self.text)
-                self.code = self.decode()
+                self.code = self.encrypt()
                 break
             except KeyError:
-                print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
-    
+                print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.")
 
-letter_value = {
+
+letter_value: dict[str, int | str] = {
     " " : " ",
     "a" : 0, 
     "b" : 1,
@@ -52,7 +52,7 @@ letter_value = {
     "z" : 25
 }
 
-value_letter = {
+value_letter: dict[int | str, str] = {
     " " : " ",
     0 : "a",
     1 : "b",
@@ -82,8 +82,8 @@ value_letter = {
     25 : "z"
 } 
 
-def endcode (text, text_len):
-    code = []
+def decrypt (text, text_len: int) -> list[str]:
+    code: list[str] = []
     for i in range(text_len):
         value = text[i]
         code.append(value_letter[value])
