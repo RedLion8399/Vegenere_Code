@@ -1,10 +1,8 @@
-from Functions import Text, endcode, endcode_with_key
+from Functions import Text
 
-code = Text()
-key = Text()
-message = []
-code.user_input("Code: ")
-key.user_input("Schlüsselwort: ")
+code: Text = Text("Code: ")
+key: Text = Text("Schlüsselwort: ")
 
-message = endcode_with_key(code.code, key.code)
-print(endcode(message))
+code.decrypt(key)
+
+print(code.convert_to_letters())

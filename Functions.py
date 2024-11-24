@@ -1,73 +1,121 @@
-class Text:
-    def __init__(self) -> None:
-        self.text = None
-        self.len = None
-        self.code = None
-    
-    def decode (self):
-        code = []
-        for i in range(self.len):
-            value = self.text[i]
-            code.append(letter_value[value])
-        return code
+from __future__ import annotations
 
-    def user_input (self, user_message):
+class Text:
+    def __init__(self, message: str) -> None:
+        self.text: str
+        self.len: int
+        self.code: list[int | str] = []
+        self.new_text: str
+        self.new_code: list[int | str] = []
+
+        self.get_user_input(message)
+
+    def get_user_input (self, user_message: str) -> None:
         while True:
             try:
                 self.text = input(user_message).lower()
                 self.len = len(self.text)
-                self.code = self.decode()
+                self.code = self.convert_to_numbers()
                 break
             except KeyError:
-                print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.") 
+                print("Bitte geben sie nur Buchstaben des lateinischen Alphabets ein.")
 
-def endcode_with_key(code, key):
-    message = []
-    code_len = len(code)
-    key_len = len(key)
-    k_i = 0
-    for c_i in range(code_len):
-        if code[c_i] == " ":
-            message.append(" ")
-        else:
-            value = code[c_i] - key[k_i]
-            if k_i + 1 < key_len:
-                k_i += 1
-            elif k_i + 1 == key_len:
-                k_i = 0
-            if value < 0:
-                value += 26
-            message.append(value)
-    return message
+    def convert_to_numbers (self) -> list[int | str]:
+        for character in list(self.text):
+            self.code.append(letter_value[character])
+        return self.code
+
+    def convert_to_letters (self) -> str:
+        new_text: list[str] = []
+        for number in self.new_code:
+            new_text.append(value_letter[number])
+        self.new_text = "".join(new_text)
+        return self.new_text
 
 
-def remove_whitespace(text):
-    without_whitespace = []
-    for letter in text:
-        if letter != " ":
-            without_whitespace.append(letter)
-    return without_whitespace
+    def decrypt (self, key: Text) -> str:
+        while True:
+            try:
+                key.code.remove(" ")
+            except ValueError:
+                break
 
-def counter(text):
-    code = {}
-    highest = [0, 0]
-    for i in text:
-        try:
-            code[i] += 1
-        except KeyError:
-            code[i] = 1
-            for letter, count in code.items():
-                if count > highest[1]:
-                    highest[0] = letter
-                    highest[1] = count
-    
-    Verschiebung = letter_value[highest[0]] - 4
-    if Verschiebung < 0:
-        Verschiebung += 26
-    return Verschiebung
+        for index, text_value in enumerate(self.code):
+            if text_value == " ":
+                self.new_code.append(" ")
+                continue
+            key_value = key.code[index % len(key.code)]
+            new_value: int = text_value - key_value
+            if new_value < 0:
+                new_value += 26
+            self.new_code.append(new_value)
+        return self.convert_to_letters()
+
+    def encrypt (self, key: Text) -> str:
+        while True:
+            try:
+                key.code.remove(" ")
+            except ValueError:
+                break
+
+        for index, text_value in enumerate(self.code):
+            if text_value == " ":
+                self.new_code.append(" ")
+                continue
+            key_value = key.code[index % len(key.code)]
+            new_value: int = text_value + key_value
+            if new_value > 25:
+                new_value -= 26
+            self.new_code.append(new_value)
+
+        return self.convert_to_letters()
+
+    def endcode_with_key(code, key):
+        message = []
+        code_len = len(code)
+        key_len = len(key)
+        k_i = 0
+        for c_i in range(code_len):
+            if code[c_i] == " ":
+                message.append(" ")
+            else:
+                value = code[c_i] - key[k_i]
+                if k_i + 1 < key_len:
+                    k_i += 1
+                elif k_i + 1 == key_len:
+                    k_i = 0
+                if value < 0:
+                    value += 26
+                message.append(value)
+        return message
 
 
-letter_value = {
+    def remove_whitespace(text):
+        without_whitespace = []
+        for letter in text:
+            if letter != " ":
+                without_whitespace.append(letter)
+        return without_whitespace
+
+    def counter(text):
+        code = {}
+        highest = [0, 0]
+        for i in text:
+            try:
+                code[i] += 1
+            except KeyError:
+                code[i] = 1
+                for letter, count in code.items():
+                    if count > highest[1]:
+                        highest[0] = letter
+                        highest[1] = count
+        
+        Verschiebung = letter_value[highest[0]] - 4
+        if Verschiebung < 0:
+            Verschiebung += 26
+        return Verschiebung
+
+letter_value: dict[str, int | str] = {
     " " : " ",
     "a" : 0, 
     "b" : 1,
@@ -97,7 +145,7 @@ letter_value = {
     "z" : 25
 }
 
-value_letter = {
+value_letter: dict[int | str, str] = {
     " " : " ",
     0 : "a",
     1 : "b",
@@ -125,12 +173,4 @@ value_letter = {
     23 : "x",
     24 : "y",
     25 : "z"
-} 
-
-def endcode (text):
-    text_len = len(text)
-    code = []
-    for i in range(text_len):
-        value = text[i]
-        code.append(value_letter[value])
-    return "".join(code)
+}
